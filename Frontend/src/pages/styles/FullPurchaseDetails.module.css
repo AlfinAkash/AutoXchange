@@ -1,0 +1,126 @@
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    overflow-y: auto;
+    z-index: 1050;
+    animation: fadeIn 0.4s ease-in-out;
+    padding-top: 2rem;
+  }
+  
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .heading {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0d6efd;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .closeButton {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    background-color: #212529;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .closeButton:hover {
+    background-color: #0b0b0b;
+  }
+  
+  .cardContainer {
+    border: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.3s ease;
+    border-radius: 12px;
+  }
+  
+  .cardHeader {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+    padding: 1rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .badgeSold {
+    background-color: #198754;
+  }
+  
+  .badgeUnsold {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  
+  .cardBody {
+    padding: 1.5rem;
+  }
+  
+  .cardFooter {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #eaeaea;
+    background-color: #f9f9f9;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cardFooter small {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+  
+  .btnGroup {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  input.form-control {
+    border-radius: 6px;
+    transition: border-color 0.3s;
+  }
+  
+  input.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  

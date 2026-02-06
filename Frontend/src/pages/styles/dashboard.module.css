@@ -1,0 +1,32 @@
+.dashboardCard {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 160px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.dashboardCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.cardBlue {
+  background-color: #2d85f3;
+}
+.cardGreen {
+  background-color: #28a745;
+}
+.cardYellow {
+  background-color: #ffc107;
+  color: #000 !important;
+}
+.cardPurple {
+  background-color:  #6f42c1;
+}
+.cardOrange {
+  background-color: #17a2b8;
+}
+.cardRed {
+  background-color: #198754;
+}
