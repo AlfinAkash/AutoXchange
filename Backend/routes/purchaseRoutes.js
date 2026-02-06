@@ -17,26 +17,26 @@ const {
 
 
 router.post(
-  '/',
+  '/',auth, 
   upload.fields([{ name: 'bikeImages', maxCount: 5 }]),
   createPurchase
 );
 
-router.get('/', getAllPurchases);
-router.get('/:id', getSinglePurchase);
+router.get('/', auth, getAllPurchases);
+router.get('/:id', auth, getSinglePurchase);
 
-router.put('/:id', editPurchase); 
+router.put('/:id', auth, editPurchase); 
 
-router.delete('/:id', deletePurchase);
+router.delete('/:id', auth, deletePurchase);
 
 router.post(
-  '/:id/profile-picture',
+  '/:id/profile-picture',auth,
   upload.single('profilePicture'),
   uploadProfilePicture
 );
 
 router.delete(
-  '/:id/profile-picture',
+  '/:id/profile-picture',auth,
   deleteProfilePicture
 );
 

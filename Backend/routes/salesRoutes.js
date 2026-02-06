@@ -6,11 +6,11 @@ const { createSale, getSales, updateSale, deleteSale,getSaleInvoice } = require(
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/', upload.fields([{ name: 'bikeImages', maxCount: 5 }]), createSale);
-router.get('/', getSales);
-router.put('/:id', updateSale);
-router.delete('/:id', deleteSale);
-router.get('/:id/invoice', getSaleInvoice);
+router.post('/', auth, upload.fields([{ name: 'bikeImages', maxCount: 5 }]), createSale);
+router.get('/', auth, getSales);
+router.put('/:id', auth, updateSale);
+router.delete('/:id', auth, deleteSale);
+router.get('/:id/invoice', auth, getSaleInvoice);
 
 
 module.exports = router;

@@ -9,9 +9,9 @@ const upload = multer({ dest: 'uploads/' });
 
 router.use(auth);
 
-router.post('/profile', upload.single('file'), uploadProfileImage);
-router.delete('/profile', deleteProfileImage);
-router.post('/bike/:bikeId', upload.array('files', 5), uploadBikeImages);
-router.delete('/bike/:bikeId', deleteBikeImage);
+router.post('/profile', auth, upload.single('file'), uploadProfileImage);
+router.delete('/profile', auth, deleteProfileImage);
+router.post('/bike/:bikeId', auth, upload.array('files', 5), uploadBikeImages);
+router.delete('/bike/:bikeId', auth, deleteBikeImage);
 
 module.exports = router;

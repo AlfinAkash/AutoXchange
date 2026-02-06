@@ -4,7 +4,7 @@ const { filterAllItems, getCurrentStock } = require('../controllers/filtersContr
 const auth = require('../middleware/authMiddleware');
 const role = require('../middleware/roleMiddleware')
 
-router.get('/search', filterAllItems);  
-router.get('/stock', getCurrentStock);  
+router.get('/search', auth, filterAllItems);  
+router.get('/stock', auth, getCurrentStock);  
 
 module.exports = router;
