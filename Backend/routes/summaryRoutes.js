@@ -6,6 +6,6 @@ const { getSummary } = require('../controllers/summaryController');
 
 
 
-router.get('/', getSummary);
+router.get('/', auth, role('admin'), getSummary);
 
 module.exports = router;
