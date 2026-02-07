@@ -29,33 +29,46 @@ const getSummary = async (req, res) => {
       totalProfit = 0
     } = totalSales[0] || {};
 
-    const monthlyPurchase = await Purchase.aggregate([
-      { $match: { serviceStatus: 'sold' } },
-      {
-        $group: {
-          _id: {
-            year: { $year: "$purchaseDate" },
-            month: { $month: "$purchaseDate" }
-          },
-          total: { $sum: "$purchaseAmount" }
-        }
+const monthlyPurchase = await Purchase.aggregate([
+  { $match: { serviceStatus: 'sold', purchaseDate: { $ne: null } } },
+  {
+    $addFields: {
+      purchaseDateSafe: { $toDate: "$purchaseDate" }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        year: { $year: "$purchaseDateSafe" },
+        month: { $month: "$purchaseDateSafe" }
       },
-      { $sort: { "_id.year": 1, "_id.month": 1 } }
-    ]);
+      total: { $sum: "$purchaseAmount" }
+    }
+  },
+  { $sort: { "_id.year": 1, "_id.month": 1 } }
+]);
 
-    const monthlySales = await Sale.aggregate([
-      {
-        $group: {
-          _id: {
-            year: { $year: "$saleDate" },
-            month: { $month: "$saleDate" }
-          },
-          total: { $sum: "$sellingAmount" },
-          profit: { $sum: "$profit" }
-        }
+
+   const monthlySales = await Sale.aggregate([
+  { $match: { saleDate: { $ne: null } } },
+  {
+    $addFields: {
+      saleDateSafe: { $toDate: "$saleDate" }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        year: { $year: "$saleDateSafe" },
+        month: { $month: "$saleDateSafe" }
       },
-      { $sort: { "_id.year": 1, "_id.month": 1 } }
-    ]);
+      total: { $sum: "$sellingAmount" },
+      profit: { $sum: "$profit" }
+    }
+  },
+  { $sort: { "_id.year": 1, "_id.month": 1 } }
+]);
+
 
     const saleRecords = await Sale.find();
     const monthlyProfitMap = new Map();
@@ -81,27 +94,40 @@ const getSummary = async (req, res) => {
       ...data
     }));
 
-    const yearlyPurchase = await Purchase.aggregate([
-      { $match: { serviceStatus: 'sold' } },
-      {
-        $group: {
-          _id: { year: { $year: "$purchaseDate" } },
-          total: { $sum: "$purchaseAmount" }
-        }
-      },
-      { $sort: { "_id.year": 1 } }
-    ]);
+const yearlyPurchase = await Purchase.aggregate([
+  { $match: { serviceStatus: 'sold', purchaseDate: { $ne: null } } },
+  {
+    $addFields: {
+      purchaseDateSafe: { $toDate: "$purchaseDate" }
+    }
+  },
+  {
+    $group: {
+      _id: { year: { $year: "$purchaseDateSafe" } },
+      total: { $sum: "$purchaseAmount" }
+    }
+  },
+  { $sort: { "_id.year": 1 } }
+]);
 
-    const yearlySales = await Sale.aggregate([
-      {
-        $group: {
-          _id: { year: { $year: "$saleDate" } },
-          sellingAmount: { $sum: "$sellingAmount" },
-          profit: { $sum: "$profit" }
-        }
-      },
-      { $sort: { "_id.year": 1 } }
-    ]);
+
+ const yearlySales = await Sale.aggregate([
+  { $match: { saleDate: { $ne: null } } },
+  {
+    $addFields: {
+      saleDateSafe: { $toDate: "$saleDate" }
+    }
+  },
+  {
+    $group: {
+      _id: { year: { $year: "$saleDateSafe" } },
+      sellingAmount: { $sum: "$sellingAmount" },
+      profit: { $sum: "$profit" }
+    }
+  },
+  { $sort: { "_id.year": 1 } }
+]);
+
 
 
     const yearlyProfitMap = new Map();
